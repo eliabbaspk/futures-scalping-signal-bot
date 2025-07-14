@@ -2,7 +2,7 @@ import pandas as pd
 from datetime import datetime
 
 def get_live_signals():
-    return pd.DataFrame([
+    data = [
         {
             "Time": datetime.now().strftime("%H:%M:%S"),
             "Pair": "BTCUSDT",
@@ -12,4 +12,5 @@ def get_live_signals():
             "Take Profit": 58425.75,
             "Success Rate": "87.5%",
         }
-    ])
+    ]
+    return pd.DataFrame(data)
