@@ -5,18 +5,17 @@ from core.signal_engine import get_live_signals
 st.set_page_config(page_title="Futures Scalping Signal Bot", layout="wide")
 st.title("📈 Futures Scalping Signal Bot")
 
+# Safe call
 try:
     signals = get_live_signals()
 except Exception as e:
-    st.error(f"❌ get_live_signals() crashed: {e}")
+    st.error(f"❌ Signal error: {e}")
     signals = pd.DataFrame()
 
-# SAFELY display results
-if isinstance(signals, pd.DataFrame):
-    if signals.shape[0] > 0:
-        st.success("✅ Live signals:")
-        st.dataframe(signals, use_container_width=True)
-    else:
-        st.warning("🕒 No signals detected yet.")
+# Safe display
+if isinstance(signals, pd.DataFrame) and len(signals) > 0:
+    st.success("✅ Live Signals:")
+    st.dataframe(signals, use_container_width=True)
 else:
-    st.error("⚠️ Invalid data format: Expected a DataFrame.")
+    st.info("🕒 No signals available yet.")
+
